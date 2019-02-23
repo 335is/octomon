@@ -1,0 +1,25 @@
+Monitors the status of a single Octopus Deploy server instance.
+
+Periodically makes web requests to its REST API to validate it's running properly.
+Each healthcheck is individually configurable.
+
+Health Checks
+    Version
+        Verifies web request using supplied address and API Key succeeds
+        Retrieves the following properties
+            Application: "Octopus Deploy"
+            Version: "2019.1.6"
+            ApiVersion: "3.0.0"
+            InstallationId: "6f0692c9-e403-c4c5-a7bf-7483edb1a54f"
+        Status
+            Ok: successfully retrieves version string
+            Warning: successfully completed REST API call, but got back unexpected results
+            Failure: failed to successfully complete REST API call
+    Stuck Tasks
+        Checks for tasks running too long
+        Retrieves list of stuck tasks
+            Name, ID, Project, Version, Environment, Target
+        Status
+            Ok: no stuck tasks
+            Warning: at least one task stuck longer than the warning threshold
+            Failure: at least one task stuck longer than the failure threshold
