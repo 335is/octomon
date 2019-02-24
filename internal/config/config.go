@@ -42,14 +42,14 @@ func Default() *Config {
 }
 
 // FromYaml extracts settings from a YAML string
-func FromYaml(yml string) (*Config, error) {
-	cfg := Default()
-	err := yaml.Unmarshal([]byte(yml), cfg)
+func FromYaml(yml []byte) (*Config, error) {
+	cfg := Config{}
+	err := yaml.Unmarshal(yml, &cfg)
 	if err != nil {
 		return nil, err
 	}
 
-	return cfg, nil
+	return &cfg, nil
 }
 
 // FromYamlFile extracts settings from a YAML file
@@ -61,7 +61,7 @@ func FromYamlFile(path string) (*Config, error) {
 	}
 
 	// unmarshal from string to struct
-	return FromYaml(string(yml))
+	return FromYaml(yml)
 }
 
 // FromEnvironment extracts settings from environment variables.
@@ -70,11 +70,11 @@ func FromYamlFile(path string) (*Config, error) {
 //	OCTOMON_OCTOPUS_APIKEY
 //	OCTOMON_HEALTHCHECK_INTERVAL
 func FromEnvironment(appName string) (*Config, error) {
-	cfg := Default()
-	err := envconfig.Process(strings.ToUpper(appName), cfg)
+	cfg := Config{}
+	err := envconfig.Process(strings.ToUpper(appName), &cfg)
 	if err != nil {
 		return nil, err
 	}
 
-	return cfg, nil
+	return &cfg, nil
 }

@@ -24,29 +24,29 @@ octopus:
    address: http://example.com/
    apikey: API-DEADBEEFBAADFOODFAADDEEDED
 healthcheck:
-   interval: 5m
+   interval: 5m30s
 `
 var badYml = "This is really NOT YAML."
 
 // FromYaml - good YAML
 func TestFromYaml(t *testing.T) {
-	cfg, err := FromYaml(yml)
+	cfg, err := FromYaml([]byte(yml))
 	assert.Nil(t, err, "Expected no error")
 	assert.NotNil(t, cfg)
 	assert.NotNil(t, cfg.Octopus)
 	assert.Equal(t, "http://example.com/", cfg.Octopus.Address)
 	assert.Equal(t, "API-DEADBEEFBAADFOODFAADDEEDED", cfg.Octopus.APIKey)
-	assert.Equal(t, 5*time.Minute, cfg.HealthCheck.Interval)
+	assert.Equal(t, (5*time.Minute)+(30*time.Second), cfg.HealthCheck.Interval)
 }
 
 // FromYaml - bad YAML
 func TestFromYamlBad(t *testing.T) {
-	cfg, err := FromYaml(badYml)
-	assert.NotNil(t, err, "Expected an error")
+	cfg, err := FromYaml([]byte(badYml))
+	assert.NotNil(t, err, "Expected an error become of bad YAML")
 	assert.Nil(t, cfg)
 }
 
-// FromYamlFile - good YAML
+// FromYamlFile - good YAML file
 func TestFromYamlFile(t *testing.T) {
 	file, err := ioutil.TempFile(".", "yaml_test")
 	assert.Nil(t, err, "Got error trying to create temporary YAML file")
@@ -65,10 +65,10 @@ func TestFromYamlFile(t *testing.T) {
 	assert.NotNil(t, cfg.Octopus)
 	assert.Equal(t, "http://example.com/", cfg.Octopus.Address)
 	assert.Equal(t, "API-DEADBEEFBAADFOODFAADDEEDED", cfg.Octopus.APIKey)
-	assert.Equal(t, 5*time.Minute, cfg.HealthCheck.Interval)
+	assert.Equal(t, (5*time.Minute)+(30*time.Second), cfg.HealthCheck.Interval)
 }
 
-// FromYamlFile - bad YAML
+// FromYamlFile - bad YAML file
 func TestFromYamlFileBad(t *testing.T) {
 	file, err := ioutil.TempFile(".", "yaml_test_bad")
 	assert.Nil(t, err, "Got error trying to create temporary YAML file")
@@ -86,7 +86,7 @@ func TestFromYamlFileBad(t *testing.T) {
 	assert.Nil(t, cfg)
 }
 
-// FromYamlFile - no YAML file
+// FromYamlFile - missing YAML file
 func TestFromYamlFileNoFile(t *testing.T) {
 	cfg, err := FromYamlFile("bogus_file_name")
 	assert.NotNil(t, err, "Expected an error")

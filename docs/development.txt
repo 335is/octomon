@@ -24,7 +24,7 @@ Run Specific Unit Test in a Specific Package
 
 
 ToDo:
-    Change logging to support differen levels: Info, Warning, Debug, Trace, Error, Fatal
+    Change logging to support different levels: Info, Warning, Debug, Trace, Error, Fatal
     Fix it so that logging statements aren't shown when unit tests run.
+    Break out logging to a separate package.
     Break out config into a separate package and possibly repo.
-    Create a logging package.
