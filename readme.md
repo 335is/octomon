@@ -25,8 +25,11 @@ go run main.go
 ## Example Octopus Deploy Server
 
 [Demo Octopus Deploy](https://demo.octopusdeploy.com)
+
 username: guest
+
 password: guest
+
 API key: API-GUEST
 
 ## API Documentation

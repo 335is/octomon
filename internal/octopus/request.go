@@ -16,8 +16,7 @@ func (c *Client) DoGetRequest(queryParams map[string]string) (*http.Response, er
 	// HTTP request header required to make Octopus Deploy API calls
 	request.Header.Add("X-Octopus-ApiKey", c.APIKey)
 
-	client := http.Client{}
-	resp, err := client.Do(request)
+	resp, err := c.httpClient.Do(request)
 	if err != nil {
 		return nil, err
 	}

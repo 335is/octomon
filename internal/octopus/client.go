@@ -12,7 +12,7 @@ type Client struct {
 	httpClient *http.Client
 }
 
-// New create a new Octopus Deploy API client
+// New creates a new Octopus Deploy API client
 func New(address, apiKey string, httpClient *http.Client) *Client {
 	client := Client{
 		Address:    strings.TrimRight(address, "/"),

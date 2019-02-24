@@ -65,7 +65,7 @@ func FromYamlFile(path string) (*Config, error) {
 }
 
 // FromEnvironment extracts settings from environment variables.
-// We expect the following:
+// We expect them to be named like following:
 //	OCTOMON_OCTOPUS_ADDRESS
 //	OCTOMON_OCTOPUS_APIKEY
 //	OCTOMON_HEALTHCHECK_INTERVAL

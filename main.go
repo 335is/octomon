@@ -14,7 +14,7 @@ import (
 
 const (
 	// AppName defines the prefix for any configuration environment variables, as in OCTOMON_OCTOPUS_ADDRESS
-	appName    = "OCTOMON"
+	appName    = "octomon"
 	appVersion = "0.0.1"
 )
 
@@ -25,6 +25,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to load configuration from environment variables: %v", err)
 	}
+	log.Printf("Configuration loaded from environment variables")
 
 	octo := octopus.New(cfg.Octopus.Address, cfg.Octopus.APIKey, &http.Client{})
 
@@ -35,7 +36,10 @@ func main() {
 
 	waitForExit()
 
+	log.Printf("Stopping %s", appName)
 	checker.Stop()
+
+	log.Printf("Shutting down")
 }
 
 func waitForExit() {

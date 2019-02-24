@@ -68,7 +68,7 @@ func (r *checker) Run(interval time.Duration, count int64) {
 	}
 }
 
-// Run is a go routine that periodically executes all health checks
+// RunAsync is a go routine that periodically executes all health checks
 //		interval: time period between health checks
 //		count: total number of health checks to make, negative number means infinite
 func (r *checker) RunAsync(interval time.Duration, count int64) {

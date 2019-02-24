@@ -44,6 +44,8 @@ func (c *Client) StuckTasks() func() (health.Status, string) {
 			return health.Failure, fmt.Sprintf("failed to decode JSON response from %s: %v", c.Address, err)
 		}
 
+		// ToDo: add actual checks for stuck deploy tasks
+
 		return health.Ok, ""
 	}
 }
