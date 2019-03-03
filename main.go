@@ -1,11 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+
+	uuid "github.com/satori/go.uuid"
 
 	"github.com/335is/octomon/internal/config"
 	"github.com/335is/octomon/internal/health"
@@ -18,8 +21,16 @@ const (
 	appVersion = "0.0.1"
 )
 
+var (
+	appInstance string
+)
+
+func init() {
+	appInstance = fmt.Sprintf("%s", uuid.NewV4())
+}
+
 func main() {
-	log.Printf("Starting %s %s", appName, appVersion)
+	log.Printf("Starting %s %s %s", appName, appVersion, appInstance)
 
 	cfg, err := config.FromEnvironment(appName)
 	if err != nil {
@@ -30,13 +41,13 @@ func main() {
 	octo := octopus.New(cfg.Octopus.Address, cfg.Octopus.APIKey, &http.Client{})
 
 	checker := health.NewChecker()
-	checker.AddCheck("Version", octo.Version())
-	checker.AddCheck("Stuck Tasks", octo.StuckTasks())
+	checker.AddCheck("Version", octo.Version(cfg.HealthCheck.Version))
+	checker.AddCheck("StuckTasks", octo.StuckTasks(cfg.HealthCheck.StuckTasks))
 	checker.RunAsync(cfg.HealthCheck.Interval, 10)
 
 	waitForExit()
 
-	log.Printf("Stopping %s", appName)
+	log.Printf("Stopping %s %s %s", appName, appVersion, appInstance)
 	checker.Stop()
 
 	log.Printf("Shutting down")

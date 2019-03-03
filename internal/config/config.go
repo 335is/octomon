@@ -5,6 +5,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/335is/octomon/internal/octopus"
 	"github.com/kelseyhightower/envconfig"
 	yaml "gopkg.in/yaml.v2"
 )
@@ -23,7 +24,9 @@ type Octopus struct {
 
 // HealthCheck holds health check settings
 type HealthCheck struct {
-	Interval time.Duration `yaml:"interval" default:"1m"`
+	Interval   time.Duration `yaml:"interval" default:"1m"`
+	Version    *octopus.Version
+	StuckTasks *octopus.StuckTasks
 }
 
 // Default returns settings that work with a public demo Octopus Deploy server

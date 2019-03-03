@@ -19,6 +19,7 @@ Requires two environment variables pointing to the Octopus Deploy server.
 ```bash
 export OCTOMON_OCTOPUS_ADDRESS=https://demo.octopusdeploy.com
 export OCTOMON_OCTOPUS_APIKEY=API-GUEST
+export OCTOMON_HEALTHCHECK_INTERVAL=10s
 go run main.go
 ```
 
@@ -36,7 +37,9 @@ API key: API-GUEST
 
 [Swagger UI](http://demo.octopusdeploy.com/swaggerui/index.html)
 
-[Octopus Deploy API](https://octopus.com/docs/api-and-integration/api)
+[Octopus REST API](https://octopus.com/docs/api-and-integration/api)
+
+[Octopus Deploy API](https://github.com/OctopusDeploy/OctopusDeploy-Api/wiki)
 
 ## Example API Calls
 
