@@ -32,13 +32,9 @@ func init() {
 func main() {
 	log.Printf("Starting %s %s %s", appName, appVersion, appInstance)
 
-	cfg, err := config.FromEnvironment(appName)
-	if err != nil {
-		log.Fatalf("Failed to load configuration from environment variables: %v", err)
-	}
-	log.Printf("Configuration loaded from environment variables")
-
+	cfg := config.New(appName)
 	octo := octopus.New(cfg.Octopus.Address, cfg.Octopus.APIKey, &http.Client{})
+	log.Printf("Monitoring %s", cfg.Octopus.Address)
 
 	checker := health.NewChecker()
 	checker.AddCheck("Version", octo.Version(cfg.HealthCheck.Version))

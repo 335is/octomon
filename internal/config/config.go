@@ -1,16 +1,17 @@
 package config
 
 import (
-	"io/ioutil"
-	"strings"
 	"time"
 
+	cfg "github.com/335is/config"
 	"github.com/335is/octomon/internal/octopus"
-	"github.com/kelseyhightower/envconfig"
-	yaml "gopkg.in/yaml.v2"
 )
 
 // Config holds our configuration settings
+//	OCTOMON_OCTOPUS_ADDRESS
+//	OCTOMON_OCTOPUS_APIKEY
+//	OCTOMON_HEALTHCHECK_INTERVAL
+//	OCTOMON_HEALTHCHECK_STUCKTASKS_WARNINGCANCELLINGDURATION
 type Config struct {
 	Octopus     *Octopus     `yaml:"octopus"`
 	HealthCheck *HealthCheck `yaml:"healthcheck"`
@@ -18,8 +19,8 @@ type Config struct {
 
 // Octopus holds our octopus settings
 type Octopus struct {
-	Address string `yaml:"address" required:"true"`
-	APIKey  string `yaml:"apikey" required:"true"`
+	Address string `yaml:"address" required:"true" default:"https://demo.octopusdeploy.com"`
+	APIKey  string `yaml:"apikey" required:"true" default:"API-GUEST"`
 }
 
 // HealthCheck holds health check settings
@@ -29,55 +30,15 @@ type HealthCheck struct {
 	StuckTasks *octopus.StuckTasks
 }
 
-// Default returns settings that work with a public demo Octopus Deploy server
-func Default() *Config {
-	cfg := Config{
-		Octopus: &Octopus{
-			Address: "https://demo.octopusdeploy.com",
-			APIKey:  "API-GUEST",
-		},
-		HealthCheck: &HealthCheck{
-			Interval: time.Minute,
-		},
+// New starts with a default config that works with a public demo Octopus Deploy server,
+// then overrides settings from a YAML config file and env vars if they exist.
+func New(appName string) *Config {
+	c := Config{
+		Octopus:     &Octopus{},
+		HealthCheck: &HealthCheck{},
 	}
 
-	return &cfg
-}
+	cfg.Load(appName, &c)
 
-// FromYaml extracts settings from a YAML string
-func FromYaml(yml []byte) (*Config, error) {
-	cfg := Config{}
-	err := yaml.Unmarshal(yml, &cfg)
-	if err != nil {
-		return nil, err
-	}
-
-	return &cfg, nil
-}
-
-// FromYamlFile extracts settings from a YAML file
-func FromYamlFile(path string) (*Config, error) {
-	// read YAML text file into a string
-	yml, err := ioutil.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-
-	// unmarshal from string to struct
-	return FromYaml(yml)
-}
-
-// FromEnvironment extracts settings from environment variables.
-// We expect them to be named like following:
-//	OCTOMON_OCTOPUS_ADDRESS
-//	OCTOMON_OCTOPUS_APIKEY
-//	OCTOMON_HEALTHCHECK_INTERVAL
-func FromEnvironment(appName string) (*Config, error) {
-	cfg := Config{}
-	err := envconfig.Process(strings.ToUpper(appName), &cfg)
-	if err != nil {
-		return nil, err
-	}
-
-	return &cfg, nil
+	return &c
 }
