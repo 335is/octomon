@@ -75,6 +75,6 @@ func (c *Client) StuckTasks(cfg *StuckTasks) func() (health.Status, string) {
 			lastInterruptedTime = time.Time{}
 		}
 
-		return health.Ok, ""
+		return health.Ok, "No stuck tasks"
 	}
 }
