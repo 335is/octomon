@@ -2,9 +2,10 @@ package health
 
 import (
 	"context"
-	"log"
 	"sync"
 	"time"
+
+	log "github.com/335is/log"
 )
 
 // Checker defines the health checker interface
@@ -102,6 +103,6 @@ func (r *checker) DoChecks() {
 		check.result.Count++
 		check.result.LastStatus, check.result.LastMessage = check.Exec()
 
-		log.Printf("%s health check: status=%s, message=%s", check.Name, check.result.LastStatus, check.result.LastMessage)
+		log.Debugf("%s health check: status=%s, message=%s", check.Name, check.result.LastStatus, check.result.LastMessage)
 	}
 }

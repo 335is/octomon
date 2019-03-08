@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -10,6 +9,7 @@ import (
 
 	uuid "github.com/satori/go.uuid"
 
+	"github.com/335is/log"
 	"github.com/335is/octomon/internal/config"
 	"github.com/335is/octomon/internal/health"
 	"github.com/335is/octomon/internal/octopus"
@@ -30,11 +30,11 @@ func init() {
 }
 
 func main() {
-	log.Printf("Starting %s %s %s", appName, appVersion, appInstance)
+	log.Infof("Starting %s %s %s", appName, appVersion, appInstance)
 
 	cfg := config.New(appName)
 	octo := octopus.New(cfg.Octopus.Address, cfg.Octopus.APIKey, &http.Client{})
-	log.Printf("Monitoring %s", cfg.Octopus.Address)
+	log.Infof("Monitoring %s", cfg.Octopus.Address)
 
 	checker := health.NewChecker()
 	checker.AddCheck("Version", octo.Version(cfg.HealthCheck.Version))
@@ -43,15 +43,15 @@ func main() {
 
 	waitForExit()
 
-	log.Printf("Stopping %s %s %s", appName, appVersion, appInstance)
+	log.Infof("Stopping %s %s %s", appName, appVersion, appInstance)
 	checker.Stop()
 
-	log.Printf("Shutting down")
+	log.Infof("Shutting down")
 }
 
 func waitForExit() {
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGQUIT, syscall.SIGABRT, syscall.SIGKILL, syscall.SIGTERM)
 	sig := <-sigs
-	log.Printf("Received signal %s, exiting...", sig)
+	log.Infof("Received signal %s, exiting...", sig)
 }
