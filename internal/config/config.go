@@ -38,7 +38,7 @@ func New(appName string) *Config {
 		HealthCheck: &HealthCheck{},
 	}
 
-	cfg.Load(appName, &c)
+	cfg.Load(appName, "", &c)
 
 	return &c
 }
