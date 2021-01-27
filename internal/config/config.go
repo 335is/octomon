@@ -19,13 +19,13 @@ type Config struct {
 
 // Octopus holds our octopus settings
 type Octopus struct {
-	Address string `yaml:"address"`
-	APIKey  string `yaml:"apikey"`
+	Address string `yaml:"address" required:"true" default:"https://demo.octopusdeploy.com"`
+	APIKey  string `yaml:"apikey" required:"true" default:"API-GUEST"`
 }
 
 // HealthCheck holds health check settings
 type HealthCheck struct {
-	Interval   time.Duration `yaml:"interval"`
+	Interval   time.Duration `yaml:"interval" default:"1m"`
 	Version    *octopus.Version
 	StuckTasks *octopus.StuckTasks
 }
