@@ -8,10 +8,6 @@
 
 [Download Go](https://golang.org/dl/)
 
-### Dep 0.4.1
-
-[Dep Releases](https://github.com/golang/dep/releases/)
-
 ## How to Use
 
 Requires two environment variables pointing to the Octopus Deploy server.
