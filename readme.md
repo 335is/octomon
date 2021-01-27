@@ -4,7 +4,7 @@
 
 ## Requirements
 
-### Go 1.11.5
+### Go 1.15.7
 
 [Download Go](https://golang.org/dl/)
 
