@@ -1,7 +1,7 @@
 ---
 # Octopus Deploy server
 octopus:
-   address: http://localhost:80
-   apikey: API-QF08FMFNPCBUDPY8XVPOEIZVN8
+   address: https://demo.octopus.com
+   apikey: API-GUEST
 healthcheck:
    interval: 10s

@@ -19,13 +19,13 @@ type Config struct {
 
 // Octopus holds our octopus settings
 type Octopus struct {
-	Address string `yaml:"address" required:"true" default:"https://demo.octopusdeploy.com"`
-	APIKey  string `yaml:"apikey" required:"true" default:"API-GUEST"`
+	Address string `yaml:"address"`
+	APIKey  string `yaml:"apikey"`
 }
 
 // HealthCheck holds health check settings
 type HealthCheck struct {
-	Interval   time.Duration `yaml:"interval" default:"1m"`
+	Interval   time.Duration `yaml:"interval"`
 	Version    *octopus.Version
 	StuckTasks *octopus.StuckTasks
 }
@@ -41,4 +41,10 @@ func New(appName string) *Config {
 	cfg.Load(appName, "", &c)
 
 	return &c
+}
+
+// Dump returns the Octopus configuration in YAML string form
+func (c *Config) Dump() string {
+	s, _ := cfg.ToYaml(&c.Octopus)
+	return s
 }
