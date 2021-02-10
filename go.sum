@@ -1,7 +1,7 @@
-github.com/335is/config v0.0.0-20210126233951-9d38ec0a4fa2 h1:W2CeVHpE52HqQxbDZAi7mgzOBGvYiVnriM+pHz93gLg=
-github.com/335is/config v0.0.0-20210126233951-9d38ec0a4fa2/go.mod h1:5sgymuEXSYh88TNT9SHzG6YqqBSvFCSXXyuF9wFc4tk=
 github.com/335is/config v0.0.0-20210129003025-ec7a112ff8b8 h1:3mjBudSGPjoXeLuvRmAyil0ymOPVnEVtVZvOLatAgV4=
 github.com/335is/config v0.0.0-20210129003025-ec7a112ff8b8/go.mod h1:5sgymuEXSYh88TNT9SHzG6YqqBSvFCSXXyuF9wFc4tk=
+github.com/335is/config v0.0.0-20210204082314-1ad728a9b9a5 h1:uU8HQelFEB1PlsHbjjo0qlpXmhQcihfLcwi1KQGeD6k=
+github.com/335is/config v0.0.0-20210204082314-1ad728a9b9a5/go.mod h1:5sgymuEXSYh88TNT9SHzG6YqqBSvFCSXXyuF9wFc4tk=
 github.com/335is/log v0.0.0-20210126231334-ff6b9b9355ac h1:PNESaO7dqXg5jCKIpeXJSZF2TyYMf7qCQ3sPU8R9ZvE=
 github.com/335is/log v0.0.0-20210126231334-ff6b9b9355ac/go.mod h1:0PKM0FozOaousUNlMC0rm4EGCEJdegfBdgdQXBPWJyc=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
