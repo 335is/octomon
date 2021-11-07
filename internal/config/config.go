@@ -19,32 +19,35 @@ type Config struct {
 
 // Octopus holds our octopus settings
 type Octopus struct {
-	Address string `yaml:"address"`
-	APIKey  string `yaml:"apikey"`
+	Address string `yaml:"address" default:"https://demo.octopus.com"`
+	APIKey  string `yaml:"apikey" default:"API-GUEST"`
 }
 
 // HealthCheck holds health check settings
 type HealthCheck struct {
-	Interval   time.Duration `yaml:"interval"`
+	Interval   time.Duration `yaml:"interval" default:"60s"`
 	Version    *octopus.Version
 	StuckTasks *octopus.StuckTasks
 }
 
 // New starts with a default config that works with a public demo Octopus Deploy server,
 // then overrides settings from a YAML config file and env vars if they exist.
-func New(appName string) *Config {
+func New() *Config {
 	c := Config{
-		Octopus:     &Octopus{},
-		HealthCheck: &HealthCheck{},
+		Octopus: &Octopus{},
+		HealthCheck: &HealthCheck{
+			Version:    &octopus.Version{},
+			StuckTasks: &octopus.StuckTasks{},
+		},
 	}
 
-	cfg.Load(appName, "", &c)
+	cfg.Load("", &c)
 
 	return &c
 }
 
 // Dump returns the Octopus configuration in YAML string form
 func (c *Config) Dump() string {
-	s, _ := cfg.ToYaml(&c.Octopus)
+	s, _ := cfg.ToYaml(c)
 	return s
 }

@@ -9,6 +9,7 @@ import (
 
 // Version is the configuration for the version health check
 type Version struct {
+	Minimum string `yaml:"minimum" default:"0.0.0"`
 }
 
 // root describes the JSON response from the root API call

@@ -32,7 +32,7 @@ func init() {
 func main() {
 	log.Infof("Starting %s %s %s LOG_LEVEL=%s", appName, appVersion, appInstance, log.GetLevel().String())
 
-	cfg := config.New(appName)
+	cfg := config.New()
 	log.Debugf("Config settings: " + cfg.Dump())
 
 	octo := octopus.New(cfg.Octopus.Address, cfg.Octopus.APIKey, &http.Client{})

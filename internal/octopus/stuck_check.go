@@ -12,7 +12,7 @@ type StuckTasks struct {
 	WarningCancellingDuration  time.Duration `yaml:"warning_cancelling_duration" default:"5m"`
 	FailureCancellingDuration  time.Duration `yaml:"failure_cancelling_duration" default:"30m"`
 	WarningInterruptedDuration time.Duration `yaml:"warning_interrupted_duration" default:"1h"`
-	FailureInterruptedDuration time.Duration `yaml:"warning_interrupted_duration" default:"6h"`
+	FailureInterruptedDuration time.Duration `yaml:"failure_interrupted_duration" default:"6h"`
 }
 
 var (

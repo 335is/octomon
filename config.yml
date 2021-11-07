@@ -1,7 +1,7 @@
 ---
 # Octopus Deploy server
 octopus:
-   address: https://demo.octopus.com
+   address: https://samples.octopus.app
    apikey: API-GUEST
 healthcheck:
    interval: 10s
