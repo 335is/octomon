@@ -4,10 +4,10 @@ import (
 	"time"
 
 	cfg "github.com/335is/config"
-	"github.com/335is/octomon/internal/octopus"
 )
 
 // Config holds our configuration settings
+//
 //	OCTOMON_OCTOPUS_ADDRESS
 //	OCTOMON_OCTOPUS_APIKEY
 //	OCTOMON_HEALTHCHECK_INTERVAL
@@ -26,8 +26,21 @@ type Octopus struct {
 // HealthCheck holds health check settings
 type HealthCheck struct {
 	Interval   time.Duration `yaml:"interval" default:"60s"`
-	Version    *octopus.Version
-	StuckTasks *octopus.StuckTasks
+	Version    *Version
+	StuckTasks *StuckTasks
+}
+
+// Version is the configuration for the version health check
+type Version struct {
+	Minimum string `yaml:"minimum" default:"0.0.0"`
+}
+
+// StuckTasks is the configuration for the stuck tasks health check
+type StuckTasks struct {
+	WarningCancellingDuration  time.Duration `yaml:"warning_cancelling_duration" default:"5m"`
+	FailureCancellingDuration  time.Duration `yaml:"failure_cancelling_duration" default:"30m"`
+	WarningInterruptedDuration time.Duration `yaml:"warning_interrupted_duration" default:"1h"`
+	FailureInterruptedDuration time.Duration `yaml:"failure_interrupted_duration" default:"6h"`
 }
 
 // New starts with a default config that works with a public demo Octopus Deploy server,
@@ -36,8 +49,8 @@ func New() *Config {
 	c := Config{
 		Octopus: &Octopus{},
 		HealthCheck: &HealthCheck{
-			Version:    &octopus.Version{},
-			StuckTasks: &octopus.StuckTasks{},
+			Version:    &Version{},
+			StuckTasks: &StuckTasks{},
 		},
 	}
 
